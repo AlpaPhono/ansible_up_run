@@ -1,0 +1,17 @@
+---
+- name: Configure webservers
+  hosts: webservers
+  become: True
+  tasks:
+    - name: Install nginx
+      package: name=nginx
+    - Install config file
+      template:
+        src: nginx.config.j2
+        dest: /etc/nginx/nginx.conf
+      notify: Restart nginx
+    handlers:
+      - name: Restart nginx
+        service:name=nginx state-restarted
+...
+
